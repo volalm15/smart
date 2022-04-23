@@ -13,3 +13,5 @@ buildNumber.properties
 /device/target/
 /discovery/target/
 /.idea/
+/controller/data/
+/device/data/

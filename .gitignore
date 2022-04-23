@@ -12,3 +12,4 @@ buildNumber.properties
 /controller/target/
 /device/target/
 /discovery/target/
+/.idea/

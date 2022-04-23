@@ -1,10 +1,10 @@
 package com.vollify.smart.device.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -13,9 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Document(value = "device")
 @Data
@@ -25,17 +23,17 @@ public class Device {
     @Id
     String id;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     String name;
 
     @NotNull
     Type type;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     @NotNull
-    String room;
+    String area;
 
     @NotBlank
     @NotNull
@@ -46,7 +44,7 @@ public class Device {
     Location location;
 
     @NotNull
-    List<State> states = new ArrayList<>();
+    List<Transaction> transactions = new ArrayList<>();
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime createdAt;

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -22,17 +21,17 @@ public class Device {
     @Id
     String id;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     String name;
 
     @NotNull
     Type type;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     @NotNull
-    String room;
+    String area;
 
     @NotBlank
     @NotNull

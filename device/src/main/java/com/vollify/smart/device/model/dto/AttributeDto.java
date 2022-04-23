@@ -23,13 +23,8 @@ public class AttributeDto {
     String name;
 
     @NotNull
-    @NotBlank
-    String defaultValue;
-
-    @NotNull
-    @NotBlank
-    String description;
-
-    @NotNull
     List<Type> types = new ArrayList<>();
+
+    @NotNull
+    List<String> commands = new ArrayList<>();
 }

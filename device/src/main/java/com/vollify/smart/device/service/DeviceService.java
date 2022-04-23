@@ -2,7 +2,7 @@ package com.vollify.smart.device.service;
 
 import com.vollify.smart.device.model.Attribute;
 import com.vollify.smart.device.model.Device;
-import com.vollify.smart.device.model.State;
+import com.vollify.smart.device.model.Transaction;
 import com.vollify.smart.device.repository.DeviceRepository;
 import com.vollify.smart.device.service.common.AbstractService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,17 +32,17 @@ public class DeviceService extends AbstractService<Device> {
         entity.setLastModification(LocalDateTime.now());
         entity.setTopic(setTopicFromDevice(entity));
 
-        return super.create(fillEntityWithStates(entity));
+        return super.create(fillEntityWithTransaction(entity));
     }
 
     @Override
     public Device update(Device entity) {
         entity.setTopic(setTopicFromDevice(entity));
-        return super.update(fillEntityWithStates(entity));
+        return super.update(fillEntityWithTransaction(entity));
     }
 
     private String setTopicFromDevice(Device entity) {
-        return ((BASETOPIC + "/" + entity.getRoom() + "/" + entity.getType().getName() + "/" + entity.getName()).replace(" ", "").toLowerCase());
+        return ((BASETOPIC + "/" + entity.getArea() + "/" + entity.getType().getName() + "/" + entity.getName()).replace(" ", "").toLowerCase());
     }
 
     @Override
@@ -52,15 +51,15 @@ public class DeviceService extends AbstractService<Device> {
     }
 
 
-    private Device fillEntityWithStates(Device device){
-            List<Attribute> attributes = attributeService.findAttributesByTypes(device.getType());
+    private Device fillEntityWithTransaction(Device device) {
+        List<Attribute> attributes = attributeService.findAttributesByTypes(device.getType());
 
-            log.info(attributes.toString());
-            device.getStates().clear();
-            attributes.forEach(attribute ->
-                    device.getStates().add(new State(attribute, attribute.getDefaultValue()))
-            );
+        log.info(attributes.toString());
+        device.getTransactions().clear();
+        attributes.forEach(attribute ->
+                device.getTransactions().add(new Transaction(attribute, Collections.emptyList()))
+        );
 
-            return device;
+        return device;
     }
 }

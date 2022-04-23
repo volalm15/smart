@@ -2,7 +2,6 @@ package com.vollify.smart.device.model.dto;
 
 
 import com.vollify.smart.device.model.Location;
-import com.vollify.smart.device.model.State;
 import com.vollify.smart.device.model.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +11,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +18,7 @@ import java.util.Map;
 public class RequestDeviceDto {
     String id;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     @NotNull
     String name;
@@ -32,10 +27,10 @@ public class RequestDeviceDto {
     @Valid
     Location location;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     @NotNull
-    String room;
+    String area;
 
     @NotNull
     Type type;

@@ -1,14 +1,12 @@
 package com.vollify.smart.device.model.dto;
 
 
-import com.vollify.smart.device.model.Attribute;
 import com.vollify.smart.device.model.Location;
-import com.vollify.smart.device.model.State;
+import com.vollify.smart.device.model.Transaction;
 import com.vollify.smart.device.model.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -17,9 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +23,7 @@ import java.util.Map;
 public class DeviceDto {
     String id;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     @NotNull
     String name;
@@ -35,10 +31,10 @@ public class DeviceDto {
     @NotNull
     Type type;
 
-    @Pattern(regexp = "^[A-Za-z\s]+$")
+    @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
     @NotNull
-    String room;
+    String area;
 
     @NotBlank
     @NotNull
@@ -49,7 +45,7 @@ public class DeviceDto {
     Location location;
 
     @NotNull
-    List<State> states = new ArrayList<>();
+    List<Transaction> transactions = new ArrayList<>();
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime createdAt;

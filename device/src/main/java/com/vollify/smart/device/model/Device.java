@@ -44,7 +44,7 @@ public class Device {
     Location location;
 
     @NotNull
-    List<Transaction> transactions = new ArrayList<>();
+    List<Property> properties = new ArrayList<>();
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime createdAt;

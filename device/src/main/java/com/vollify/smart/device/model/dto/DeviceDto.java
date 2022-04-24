@@ -2,7 +2,7 @@ package com.vollify.smart.device.model.dto;
 
 
 import com.vollify.smart.device.model.Location;
-import com.vollify.smart.device.model.Transaction;
+import com.vollify.smart.device.model.Property;
 import com.vollify.smart.device.model.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,7 +45,7 @@ public class DeviceDto {
     Location location;
 
     @NotNull
-    List<Transaction> transactions = new ArrayList<>();
+    List<Property> properties = new ArrayList<>();
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime createdAt;

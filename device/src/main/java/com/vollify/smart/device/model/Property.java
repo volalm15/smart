@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaction {
+public class Property {
 
     @DBRef
     Attribute attribute;

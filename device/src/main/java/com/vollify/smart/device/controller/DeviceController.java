@@ -1,9 +1,11 @@
 package com.vollify.smart.device.controller;
 
-import com.vollify.smart.device.model.dto.RequestDeviceDto;
-import com.vollify.smart.device.model.dto.DeviceDto;
 import com.vollify.smart.device.exception.EntityNotFoundException;
 import com.vollify.smart.device.model.Device;
+import com.vollify.smart.device.model.Payload;
+import com.vollify.smart.device.model.dto.DeviceDto;
+import com.vollify.smart.device.model.dto.RequestDeviceDto;
+import com.vollify.smart.device.model.dto.RequestPayloadDto;
 import com.vollify.smart.device.service.DeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -42,8 +44,8 @@ public class DeviceController implements DeviceEndpoint {
     public ResponseEntity<DeviceDto> getDevice(final String id) throws EntityNotFoundException {
         log.info("Received getDevice Request - ID: " + id);
 
-        Optional<Device> oldDeviceOptional = deviceService.findById(id);
-        return oldDeviceOptional
+        Optional<Device> deviceOptional = deviceService.findById(id);
+        return deviceOptional
                 .map(device -> ResponseEntity.ok(convertToDto(device)))
                 .orElseThrow(() -> new EntityNotFoundException("Device not found"));
 
@@ -60,11 +62,24 @@ public class DeviceController implements DeviceEndpoint {
     }
 
     @Override
+    public ResponseEntity<DeviceDto> addPayload(final String deviceId, final String attributeId, final RequestPayloadDto requestPayload) throws EntityNotFoundException {
+        log.info("Received addPayload Request - ID: " + deviceId);
+
+        Optional<Device> deviceOptional = deviceService.findById(deviceId);
+        final Payload payload = new Payload(LocalDateTime.now(), requestPayload.getContent());
+        return deviceOptional
+                .map(device -> ResponseEntity.ok(convertToDto(deviceService.addPayload(device, attributeId, payload))))
+                .orElseThrow(() -> new EntityNotFoundException("Device not found"));
+
+    }
+
+
+    @Override
     public ResponseEntity<DeviceDto> updateDevice(final String id, final RequestDeviceDto requestDeviceDto) throws EntityNotFoundException {
-        if(!id.equals(requestDeviceDto.getId()))
+        if (!id.equals(requestDeviceDto.getId()))
             throw new ValidationException("Given IDs don't match");
 
-        log.info("Received updateDevice Request -ID:" +id + " -Body: " + requestDeviceDto.toString());
+        log.info("Received updateDevice Request -ID:" + id + " -Body: " + requestDeviceDto);
 
         final Device device = convertToEntity(requestDeviceDto);
         return ResponseEntity.ok(convertToDto(deviceService.update(device)));
@@ -99,6 +114,7 @@ public class DeviceController implements DeviceEndpoint {
                 device.setId(oldDevice.getId());
                 device.setLastModification(LocalDateTime.now());
                 device.setCreatedAt(oldDevice.getCreatedAt());
+                device.setProperties(oldDevice.getProperties());
             });
             oldDeviceOptional.orElseThrow(() -> new EntityNotFoundException("Device not found"));
         }

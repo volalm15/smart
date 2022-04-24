@@ -1,10 +1,12 @@
-package com.vollify.smart.controller.model;
+package com.vollify.smart.controller.model.dto;
 
+
+import com.vollify.smart.controller.model.Location;
+import com.vollify.smart.controller.model.Property;
+import com.vollify.smart.controller.model.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -15,16 +17,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(value = "device")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Device {
-    @Id
+@AllArgsConstructor
+public class DeviceDto {
     String id;
 
     @Pattern(regexp = "^[A-Za-z0-9_-]+$")
     @NotBlank
+    @NotNull
     String name;
 
     @NotNull
@@ -51,5 +52,4 @@ public class Device {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime lastModification;
-
 }

@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class State {
+public class Property {
 
     @DBRef
     Attribute attribute;
-    String value;
+    List<Payload> payload;
 }

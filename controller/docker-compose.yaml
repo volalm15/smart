@@ -15,24 +15,17 @@ services:
     volumes:
       - ./data:/data/db
 
-  mongo-express:
-    container_name: mongo-express-controller
-    image: mongo-express
-    depends_on:
-      - db
-    networks:
-      - mongo-compose-network
+  rabbitmq3:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
     environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo-dev
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=tribes
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
     ports:
-      - '8086:8086'
-    volumes:
-      - ./data:/data/db
-
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
 networks:
   mongo-compose-network:
     driver: bridge

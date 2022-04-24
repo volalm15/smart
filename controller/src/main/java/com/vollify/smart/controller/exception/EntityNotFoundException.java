@@ -1,6 +1,6 @@
 package com.vollify.smart.controller.exception;
 
-public class EntityNotFoundException extends ControllerServiceException {
+public class EntityNotFoundException extends DeviceServiceException {
     private final String message;
 
     public EntityNotFoundException(String message) {

@@ -1,5 +1,6 @@
 package com.vollify.smart.controller.exception;
 
+import com.mongodb.MongoServerException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -55,8 +56,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler({ControllerServiceException.class})
-    protected ResponseEntity<Object> handleIllegalArgument(ControllerServiceException ex) {
+    @ExceptionHandler({DeviceServiceException.class, MongoServerException.class})
+    protected ResponseEntity<Object> handleIllegalArgument(Exception ex) {
         final String errorString = "General device service exception. Please see 'causes' for further information.";
         final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, errorString, ex);
         return buildResponseEntity(apiError);

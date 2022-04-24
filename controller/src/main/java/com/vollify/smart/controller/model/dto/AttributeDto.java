@@ -1,23 +1,20 @@
-package com.vollify.smart.controller.model;
+package com.vollify.smart.controller.model.dto;
 
+import com.vollify.smart.controller.model.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(value = "attribute")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attribute {
-    @Id
+public class AttributeDto {
     String id;
 
     @Indexed(unique = true)

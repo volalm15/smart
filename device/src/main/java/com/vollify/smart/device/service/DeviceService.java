@@ -61,14 +61,15 @@ public class DeviceService extends AbstractService<Device> {
 
         //fill payload if exists
         if (!ignorePayload) {
-            for (Property property : device.getProperties()) {
-                for (Property oldProperty : oldProperties) {
-                    if (oldProperty.getAttribute() != null)
-                        if (property.getAttribute().getId().equals(oldProperty.getAttribute().getId())) {
-                            property.setPayload(oldProperty.getPayload());
+            device.getProperties().forEach(property -> oldProperties.forEach(oldProperty -> {
+                        if (oldProperty.getAttribute() != null) {
+                            if (property.getAttribute().getId().equals(oldProperty.getAttribute().getId())) {
+                                property.setPayload(oldProperty.getPayload());
+                            }
                         }
-                }
-            }
+
+                    })
+            );
         }
         return device;
     }

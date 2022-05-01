@@ -1,7 +1,7 @@
 package com.vollify.smart.controller.service.common;
 
 public interface RabbitQueueService {
-    void addNewQueue(String queueName, String exchangeName, String routingKey);
+    void addNewQueue(String queueName, String exchangeName, String routingKey, boolean registerListener);
 
     void addQueueToListener(String listenerId, String queueName);
 

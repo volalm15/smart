@@ -20,7 +20,8 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class DeviceService extends AbstractService<Device> {
-    public static String BASETOPIC = "smart";
+    public static String BASE_TOPIC = "smart";
+    public static String TOPIC_DELIMITER = ".";
 
     private final DeviceRepository deviceRepository;
 
@@ -43,7 +44,7 @@ public class DeviceService extends AbstractService<Device> {
     }
 
     private String setTopicFromDevice(Device entity) {
-        return ((BASETOPIC + "/" + entity.getArea() + "/" + entity.getType().getName() + "/" + entity.getName()).replace(" ", "").toLowerCase());
+        return ((BASE_TOPIC + TOPIC_DELIMITER + entity.getArea() + TOPIC_DELIMITER + entity.getType().getName() + TOPIC_DELIMITER + entity.getName()).replace(" ", "").toLowerCase());
     }
 
     @Override

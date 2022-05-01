@@ -22,7 +22,7 @@ public class RabbitQueueServiceImpl implements RabbitQueueService {
     private RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry;
 
     @Override
-    public void addNewQueue(String queueName, String exchangeName, String routingKey) {
+    public void addNewQueue(String queueName, String exchangeName, String routingKey, boolean registerListener) {
         Queue queue = new Queue(queueName, true, false, false);
         Binding binding = new Binding(
                 queueName,
@@ -33,7 +33,7 @@ public class RabbitQueueServiceImpl implements RabbitQueueService {
         );
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareBinding(binding);
-        this.addQueueToListener(exchangeName, queueName);
+        if (registerListener) this.addQueueToListener(exchangeName, queueName);
     }
 
     @Override
@@ -91,7 +91,6 @@ public class RabbitQueueServiceImpl implements RabbitQueueService {
     private AbstractMessageListenerContainer getMessageListenerContainerById(String listenerId) {
         log.info("getting message listener container by id : " + listenerId);
         return ((AbstractMessageListenerContainer) this.rabbitListenerEndpointRegistry
-                .getListenerContainer(listenerId)
-        );
+                .getListenerContainer(listenerId));
     }
 }

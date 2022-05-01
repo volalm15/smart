@@ -43,6 +43,7 @@ public class Device {
     @Valid
     Location location;
 
+
     @NotNull
     List<Property> properties = new ArrayList<>();
 

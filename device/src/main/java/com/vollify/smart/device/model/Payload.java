@@ -1,13 +1,15 @@
 package com.vollify.smart.device.model;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Payload {
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
